@@ -1,0 +1,13 @@
+product8:
+  outputs:
+    dev:
+      account: "KUTQCBB-VF37130"
+      database: "domain8_db"
+      user: "gb"
+      password: "Gau@snowland#1"
+      role:  "domain8_engginer"
+      schema: "product8"
+      threads: 1
+      type: snowflake
+      warehouse:  "domain8_wh"
+  target: dev
