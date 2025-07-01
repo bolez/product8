@@ -33,8 +33,8 @@ jobs:
         run: |
           source venv/bin/activate
           cd $PROJECT_NAME/
-          dbt docs generate --profiles-dir ./
           dbt deps --profiles-dir ./
+          dbt docs generate --profiles-dir ./
           mkdir -p ${{ github.workspace }}/docs
           cp -r target/* ${{ github.workspace }}/docs/
           
