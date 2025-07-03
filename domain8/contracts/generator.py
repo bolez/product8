@@ -21,6 +21,7 @@ def run_dbt_generate(model_name):
         print(f"YAML output saved to {file_name}")
 
     except subprocess.CalledProcessError as e:
+        print(f"Error running dbt command: {e}")
         print(f"DBT command failed: {e.stderr}")
     except yaml.YAMLError as e:
         print(f"Error parsing YAML: {e}")

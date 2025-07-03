@@ -1,0 +1,68 @@
+models:
+- columns:
+  - name: c_custkey
+    description: Customer unique key
+    tests:
+    - dbt_expectations.expect_column_values_to_not_be_null:
+        column_name: c_custkey
+    - dbt_expectations.expect_column_values_to_be_unique:
+        column_name: c_custkey
+  - name: c_name
+    description: Customer name
+    tests:
+    - dbt_expectations.expect_column_values_to_not_be_null:
+        column_name: c_name
+  - name: c_address
+    description: Customer address
+    tests:
+    - dbt_expectations.expect_column_values_to_be_of_type:
+        column_name: c_address
+        column_type: varchar
+  - name: c_nationkey
+    description: Nation key associated with the customer
+    tests:
+    - dbt_expectations.expect_column_values_to_be_of_type:
+        column_name: c_nationkey
+        column_type: number
+    - dbt_expectations.expect_column_values_to_be_in_set:
+        column_name: c_nationkey
+        value_set: "{{ dbt_utils.get_column_values(ref('nation'), 'n_nationkey') }}"
+
+  - name: c_phone
+    description: Customer phone number
+    tests:
+    - dbt_expectations.expect_column_values_to_match_regex:
+        column_name: c_phone
+        regex: ^\\+?\\d{2}-\\d{3}-\\d{3}-\\d{4}$
+
+
+
+  - name: c_acctbal
+    description: Customer account balance
+    tests:
+    - dbt_expectations.expect_column_min_to_be_between:
+        column_name: c_acctbal
+        min_value: -1000000.0
+        max_value: 1000000.0
+    - dbt_expectations.expect_column_max_to_be_between:
+        column_name: c_acctbal
+        min_value: -1000000.0
+        max_value: 10000000.0
+  - name: c_comment
+    description: Customer comment
+    tests:
+    - dbt_expectations.expect_column_value_lengths_to_be_between:
+        column_name: c_comment
+        min_value: 0
+        max_value: 500
+  - name: n_names
+    description: Nation name
+    tests:
+    - dbt_expectations.expect_column_values_to_be_in_set:
+        column_name: n_names
+        value_set: "{{ dbt_utils.get_column_values(ref('nation'), 'n_name') }}"
+
+  description: ''
+  name: customer_nation
+  description: "{{ doc('data_product') }}"
+version: 2

@@ -2,6 +2,7 @@
 
 
 
+{{ docs(show=false) }}
 {% macro list_product(object_schema, object_name, share_name) %}
     GRANT SELECT ON table  {{object_name}} TO SHARE {{ share_name }};
 {% set full_account = target.account %}
